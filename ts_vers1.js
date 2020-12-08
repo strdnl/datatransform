@@ -37,15 +37,16 @@ ix=ixx.slice(0,256);
 for (i in inpi){
 	res[i]=ix.indexOf(inpi[i]);
 	count=(count+res[i])&255;
-	//dswap(res[i]);
+	
 	dswap(count);
 	}
-	res.reverse();
-	ix=ixx2.slice(0,256);count=128;
-	for (i in res){
+	
+	ix=ixx2.slice(0,256);count=128;var i=res.length;
+	while (i > -1){
 	res[i]=ix.indexOf(res[i]);
 	count=(count+res[i])&255;
 	dswap(count);
+	i--;
 	}	
 
 console.log((Date.now()-tm)/1000);
@@ -54,22 +55,24 @@ return res;}
 //DECODE
 
 function decode (inpi){
-	ret=new Uint8Array(inpi.length);
-	var count=128;
-ix=ixx2.slice(0,256);
-for (i in inpi){
-	ret[i]=ix[inpi[i]];
-	count=(count+inpi[i])&255;
-	dswap(count);
 	
+	var count=128,i=inpi.length;
+	ret=new Uint8Array(inpi.length);
+ix=ixx2.slice(0,256);
+while (i > -1){
+	count=(count+inpi[i])&255;
+	ret[i]=ix[inpi[i]];
+	
+	dswap(count);
+	i--;
 	}	
 	
 	ix=ixx.slice(0,256);
-	var rev=new Uint8Array(ret);count=128;
-	rev.reverse();
+	count=128;
+	
 	for (i in inpi){
-	ret[i]=ix[rev[i]];
-	count=(count+rev[i])&255;
+	count=(count+ret[i])&255;
+	ret[i]=ix[ret[i]];
 	dswap(count);
 	}
 	return ret=ret.slice(0,ret.length-16);
