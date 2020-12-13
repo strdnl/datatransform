@@ -52,18 +52,6 @@ function rollB(xl){
 return new Uint32Array(t.reverse());}	
 
 
-	
-	
-function count(inp){
-	var t=new Uint32Array(1);
-	for (x in inp){t[0]=(t[0]+inp[x])%4294967296;}
-return t[0]}
-
-function bcount(inp,c){
-	var t=new Uint32Array(1),l=(inp.length-c)-5,i=0;
-	while (l > -1){t[0]=(t[0]+inp[l])%4294967296;l-=1;}
-return t[0]}
-
 function Xcnt(a,b){
 	
 	for (z in a){a[z]^=b[z];}
